@@ -3,4 +3,9 @@
 - include: install/RedHat.yml
   when: ansible_os_family == 'RedHat'
 
+- name: Install opm packages
+  command: "opm get {{item}}"
+  with_items: "{{openresty_opm_packages}}"
+  when: openresty_opm_packages is defined
+
 # vi:ts=2:sw=2:et:ft=yaml

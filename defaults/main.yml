@@ -4,3 +4,15 @@
 openresty_repo_baseurl: "https://copr-be.cloud.fedoraproject.org/results/openresty/openresty/epel-6-{{ansible_architecture}}/"
 openresty_repo_gpgcheck: true
 openresty_repo_gpgkey: https://copr-be.cloud.fedoraproject.org/results/openresty/openresty/pubkey.gpg
+
+openresty_packages:
+  - openresty
+  - openresty-opm
+
+openresty_opm_packages:
+  - pintsized/lua-resty-http
+  - openresty/lua-resty-dns
+  - bungle/lua-resty-prettycjson
+  - aptise/peter_sslers-lua-resty
+
+# vi:ts=2:sw=2:et:ft=yaml
