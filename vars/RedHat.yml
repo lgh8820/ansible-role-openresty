@@ -1,0 +1,11 @@
+---
+
+openresty_deps_packages:
+  - wget
+  - perl
+  - readline-devel
+  - pcre-devel
+  - openssl-devel
+  - openldap-devel
+  - gcc
+  - make
