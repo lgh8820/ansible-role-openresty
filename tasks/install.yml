@@ -1,0 +1,35 @@
+---
+
+- include: install/RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: openresty package stat
+  stat:
+    path: "{{openresty_package_dest}}/{{openresty_package}}"
+  register: openresty_pkg_stat
+
+- name: Download openresty Package
+  get_url:
+    url: "{{openresty_url}}"
+    dest: "{{openresty_package_dest}}"
+    mode: "0644"
+    validate_certs: "{{openresty_download_validate_certs}}"
+  when: not openresty_pkg_stat.stat.exists
+
+- name: Extract openresty binary
+  unarchive:
+    copy: no
+    creates: "{{openresty_dest}}/openresty"
+    src: "{{openresty_package_dest}}/{{openresty_package}}"
+    dest: "{{openresty_dest}}"
+    owner: "{{openresty_user}}"
+    group: "{{openresty_group}}"
+    mode: "0750"
+
+- name: Symlink openresty binary
+  file:
+    state: link
+    src: "{{openresty_dest}}/openresty"
+    dest: "{{openresty_bin}}"
+
+# vi:ts=2:sw=2:et:ft=yaml
