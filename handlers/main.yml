@@ -1,2 +1,18 @@
 ---
-# handlers file for ansible-role-openresty
+
+- name: Start openresty
+  service:
+    name: openresty
+    state: started
+
+- name: Stop openresty
+  service:
+    name: openresty
+    state: stopped
+
+- name: Restart openresty
+  service:
+    name: openresty
+    state: restarted
+
+# vi:ts=2:sw=2:et:ft=yaml

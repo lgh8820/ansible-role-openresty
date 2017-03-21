@@ -1,0 +1,9 @@
+---
+
+- name: Install Openresty dependencies (Debian)
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items: "{{openresty_packages}}"
+
+# vi:ts=2:sw=2:et:ft=yaml
