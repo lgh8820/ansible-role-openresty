@@ -1,2 +1,6 @@
 ---
-# defaults file for ansible-role-openresty
+
+
+openresty_repo_baseurl: "https://copr-be.cloud.fedoraproject.org/results/openresty/openresty/epel-6-{{ansible_architecture}}/"
+openresty_repo_gpgcheck: true
+openresty_repo_gpgkey: https://copr-be.cloud.fedoraproject.org/results/openresty/openresty/pubkey.gpg
