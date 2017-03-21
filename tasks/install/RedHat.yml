@@ -1,10 +1,26 @@
 ---
 
+- name: Add Openresty Repository (RedHat)
+  yum_repository:
+    state: present
+    name: openresty
+    description: Official Openresty Repository
+    baseurl: "{{openresty_repo_baseurl}}"
+    gpgcheck: "{{openresty_repo_gpgcheck}}"
+    gpgkey: "{{openresty_repo_gpgkey}}"
+    enabled: true
+
 - name: Install Openresty dependencies (RedHat)
   yum:
     state: present
     name: "{{item}}"
     update_cache: true
+  with_items: "{{openresty_deps_packages}}"
+
+- name: Install Openresty (RedHat)
+  yum:
+    state: present
+    name: "{{item}}"
   with_items: "{{openresty_packages}}"
 
 # vi:ts=2:sw=2:et:ft=yaml
