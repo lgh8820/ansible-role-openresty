@@ -8,6 +8,7 @@ openresty_repo_gpgkey: https://copr-be.cloud.fedoraproject.org/results/openresty
 openresty_packages:
   - openresty
   - openresty-opm
+  - openresty-resty
 
 openresty_opm_packages:
   - pintsized/lua-resty-http
