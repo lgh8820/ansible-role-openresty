@@ -1,0 +1,32 @@
+---
+
+- name: openresty site directories
+  file:
+    state: directory
+    dest:  "{{item}}"
+    owner: "{{openresty_user}}"
+    group: "{{openresty_group}}"
+    mode:  "0755"
+  with_items:
+    - "{{openresty_sites_available}}"
+    - "{{openresty_sites_enabled}}"
+
+
+- name: openresty conf.d directory
+  file:
+    state: directory
+    dest:  "{{openresty_confd_dir}}"
+    owner: "root"
+    group: "{{openresty_group}}"
+    mode:  "0755"
+
+- name: openresty Log directory
+  file:
+    state: directory
+    dest: "{{openresty_log_dir}}"
+    owner: "{{openresty_user}}"
+    group: "{{openresty_group}}"
+    mode:  "0755"
+
+
+# vi:ts=2:sw=2:et:ft=yaml
