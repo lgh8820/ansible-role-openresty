@@ -1,0 +1,20 @@
+user  {{openresty_user}};
+
+{{openresty_conf_main}}
+
+events {
+  {{openresty_conf_events|indent(width = 2)}}
+}
+
+http {
+
+  {{openresty_conf_http|indent(width = 2)}}
+
+  # Logging Settings
+
+  access_log {{openresty_log_dir}}/access_log;
+  error_log {{openresty_log_dir}}/error_log;
+
+  include {{openresty_prefix}}/conf.d/*.conf;
+  include {{openresty_prefix}}/sites-enabled/*;
+}
