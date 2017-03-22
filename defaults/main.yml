@@ -1,6 +1,52 @@
 ---
 
+openresty_user: openresty
+openresty_group: openresty
 
+# Openresty yum repo
 openresty_repo_baseurl: "https://copr-be.cloud.fedoraproject.org/results/openresty/openresty/epel-6-{{ansible_architecture}}/"
 openresty_repo_gpgcheck: true
 openresty_repo_gpgkey: https://copr-be.cloud.fedoraproject.org/results/openresty/openresty/pubkey.gpg
+
+openresty_packages:
+  - openresty
+  - openresty-opm
+  - openresty-resty
+
+# Openresty packages to be installed via opm
+openresty_opm_packages: []
+
+# Start openresty, and enable the service
+openresty_enabled: true
+
+openresty_prefix: /usr/local/openresty/nginx
+
+openresty_sites_available: "{{openresty_prefix}}/sites-available"
+openresty_sites_enabled:   "{{openresty_prefix}}/sites-enabled"
+openresty_confd_dir: "{{openresty_prefix}}/conf.d"
+openresty_log_dir:    "/var/log/openresty"
+
+openresty_conf_main: |
+  worker_rlimit_nofile 4096;
+  worker_processes 1;
+
+openresty_conf_events: |
+  worker_connections 1024;
+
+openresty_conf_http: |
+  include {{openresty_prefix}}/conf/mime.types;
+  default_type application/octet-stream;
+
+  sendfile    on;
+
+  keepalive_timeout   65;
+  types_hash_max_size 2048;
+
+  gzip on;
+  gzip_disable "msie6";
+
+openresty_config: {}
+
+openresty_vhosts: []
+
+# vi:ts=2:sw=2:et:ft=yaml

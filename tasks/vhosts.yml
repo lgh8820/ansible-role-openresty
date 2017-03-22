@@ -1,0 +1,33 @@
+---
+
+- name: Virtualhost Logdir
+  file:
+    state: directory
+    dest:  "{{openresty_log_dir}}/{{item.server_name}}"
+    owner: "{{openresty_user}}"
+    group: "{{openresty_group}}"
+    mode:  "0755"
+  with_items: "{{openresty_vhosts}}"
+
+
+- name: Virtualhosts Config
+  template:
+    src:   usr/local/openresty/nginx/sites-available/vhost.conf.j2
+    dest:  "{{openresty_sites_available}}/{{item.server_name}}.conf"
+    owner: "root"
+    group: "root"
+    mode:  "0644"
+  with_items: "{{openresty_vhosts}}"
+  notify: openresty restart
+
+
+- name: Enable Virtualhost
+  file:
+    src:   "{{openresty_sites_available}}/{{item.server_name}}.conf"
+    dest:  "{{openresty_sites_enabled}}/{{item.server_name}}.conf"
+    state: link
+  with_items: "{{openresty_vhosts}}"
+  notify: openresty restart
+
+
+# vi:ts=2:sw=2:et:ft=yaml

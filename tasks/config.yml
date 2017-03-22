@@ -1,0 +1,23 @@
+---
+
+- name: openresty main configuration file (nginx.conf)
+  template:
+    src:   usr/local/openresty/nginx/nginx.conf.j2
+    dest:  "{{openresty_prefix}}/conf/nginx.conf"
+    owner: "root"
+    group: "root"
+    mode:  "0644"
+  notify: openresty restart
+
+
+- name: openresty configuration includes
+  template:
+    src:   usr/local/openresty/nginx/conf.d/conf.j2
+    dest:  "{{openresty_confd_dir}}/{{item.key}}.conf"
+    owner: "root"
+    group: "{{openresty_group}}"
+    mode:  "0644"
+  with_dict: "{{openresty_config}}"
+  notify: openresty restart
+
+# vi:ts=2:sw=2:et:ft=yaml

@@ -1,0 +1,23 @@
+# << Ansible generated file >>
+
+{% for vhost in openresty_vhosts %}
+{%   if vhost.logrotate_enabled is defined and vhost.logrotate_enabled %}
+{{openresty_log_dir}}/{{vhost.server_name}}/*log {
+{%     if vhost.logrotate_directives is not defined %}
+  create 0644 {{openresty_user}} {{openresty_group}}
+  daily
+  rotate 30
+  missingok
+  delaycompress
+  compress
+  sharedscripts
+  postrotate
+    [ -s /usr/local/openresty/nginx/logs/nginx.pid ] && kill -USR1 `cat {{openresty_pid_file}}`
+  endscript
+{%     else %}
+  {{vhost.logrotate_directives}}
+{%     endif %}
+}
+{%   endif %}
+
+{% endfor %}
