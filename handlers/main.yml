@@ -1,16 +1,16 @@
 ---
 
-- name: Start openresty
+- name: openresty start
   service:
     name: openresty
     state: started
 
-- name: Stop openresty
+- name: openresty stop
   service:
     name: openresty
     state: stopped
 
-- name: Restart openresty
+- name: openresty restart
   service:
     name: openresty
     state: restarted
