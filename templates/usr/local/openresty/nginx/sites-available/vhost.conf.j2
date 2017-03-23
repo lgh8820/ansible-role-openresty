@@ -17,6 +17,8 @@ server {
   access_log {{item.access_log | default('%s/%s/access_log' % (openresty_log_dir, item.server_name))}} {{item.log_fmt|default('')}};
   error_log  {{item.error_log  | default('%s/%s/error_log' % (openresty_log_dir,item.server_name))}};
 
+  {{item.openresty_lua_directives|default('')|indent(width = 2)}}
+
   {{item.http_directives|default('')|indent(width = 2)}}
 }
 
