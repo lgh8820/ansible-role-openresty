@@ -7,6 +7,9 @@
 - include: install.yml
   tags: openresty_install
 
+- include: user.yml
+  tags: openresty_user
+
 - include: dirs.yml
   tags: openresty_dirs
 
