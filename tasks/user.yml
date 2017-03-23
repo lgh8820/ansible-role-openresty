@@ -1,0 +1,18 @@
+---
+
+- name: openresty group
+  group:
+    state: present
+    name: "{{openresty_group}}"
+    system: true
+
+- name: openresty user
+  user:
+    state: present
+    name: "{{openresty_user}}"
+    group: "{{openresty_group}}"
+    comment: "openresty Service"
+    shell: "/bin/nologin"
+    system: true
+
+# vi:ts=2:sw=2:et:ft=yaml
